@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>运动框架</title>
+	<style>.a{width: 100px;height: 100px;background: #ccc;position: absolute;}</style>
+</head>
+<body>	
+	<div id='con' class='a'></div>
+	<script>
+	function test(){
+		var odiv=document.getElementById('con'),timer,speed=0;
+		clearInterval(timer);
+		timer=setInterval(function(){
+			if(odiv.offsetLeft>=1000)			
+			{
+				clearInterval(timer);
+			}else{
+				odiv.style.left=speed+'px';
+				speed++;
+			}
+	},33);
+	}
+	document.onclick=test();
+	</script>
+</body>
+</html>

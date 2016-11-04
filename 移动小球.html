@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Ball</title>
+	<style>
+		*{margin: 0;padding: 0;}
+		.a{
+			width: 100px;
+			height: 100px;
+			box-shadow: 2px 2px 3px #ccc;
+			border-radius: 50%;
+			background: -moz-radial-gradient(60px 20px,circle,#f3f3f3 0%,#ccc 15%,#c4c4c4 20%,grey,gray);
+			position: absolute;
+		}
+		.b{
+			width: 100px;
+			height: 40px;
+			background: #333;
+			color: #fff;
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			margin-left: -50px;
+			margin-top: -20px;
+			text-align: center;
+			line-height: 40px;
+			text-transform: capitalize;
+			font-size: 18px;
+			cursor: pointer;
+		}
+		.dot{
+			width: 5px;
+			height: 5px;
+			background: yellowgreen;
+			position: absolute;
+			border-radius: 50%;
+			top: -5px;
+			left: 0;
+		}
+	</style>
+</head>
+<body bgcolor="snow">	
+	<p class='b' id='p1'>click me
+		<span class='dot' id='dian'></span>
+	</p>
+	
+	 <script>
+	 		var div;
+	 			var p=document.getElementById('p1');
+	 			p.onclick=function (){
+	 				p.style.display='none';
+	 			}
+	 			var dot=document.getElementById('dian');
+	 			function move(){
+	 				dot.style.left=100+'px';
+	 				var left=parseInt(dot.style.left);
+	 				if(left==100) dot.style.left=0+'px';
+	 			}
+	 			setInterval('move()',1000);
+	 			//创建小球
+	 		  document.onclick=function(event){
+	 		  	var e=event||window.event;
+	 			// 判断是否点击p
+	 			if(p.style.display=='none'){
+	 				//判断是否点击了左键，如果点击了左键，就创建小球
+	 				if(e.button!=2){
+	 					// 创建div元素节点
+	 					div=document.createElement('div');
+	 					div.className='a';
+	 					//给页面添加一个div的元素节点
+	 					document.body.appendChild(div);
+	 					//设置小球的位置是鼠标点击的位置
+	 					div.style.top=event.clientY-50+'px';
+	 					div.style.left=event.clientX-50+'px';
+	 				}
+	 			}else{
+	 				alert('click me');
+	 			}
+	 		}
+	 		//小球跟随鼠标移动
+	 		document.onmousemove=function(event){	
+	 			div.style.top=event.clientY-50+'px';
+	 			div.style.left=event.clientX-50+'px';
+	 		}
+	 		//删除小球
+	 		document.addEventListener('keypress',del);
+	 		function del(event){
+	 			var e=event||window.event;
+	 		if(e.keyCode==8){
+	 			var odiv=document.getElementsByTagName('div');
+	 			if(odiv.length>0){
+	 				odiv[odiv.length-1].parentNode.removeChild(odiv[odiv.length-1]);
+	 			}else{
+	 				alert('没有了！')
+	 			}
+	 			
+	 		}else{
+	 			alert('请按backspace删除小球');
+	 		}
+	 		}
+
+
+
+	 </script>
+</body>
+</html>

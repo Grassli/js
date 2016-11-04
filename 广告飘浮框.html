@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>飘浮框</title>
+	<style>
+		*{margin: 0;padding: 0;}
+		#container{width: 100px;height: 100px;position: absolute;background: #ccc;}
+	</style>
+</head>
+<body>	
+	<div id='container'>
+	</div>
+	<script>
+		var box=document.getElementById('container');
+		var xstep=10,ystep=5,x=y=0;
+		function run(){
+			if(x>=window.innerWidth-box.offsetWidth||x<0){
+				xstep=-xstep;
+			}
+			if(y>=window.innerHeight-box.offsetHeight||y<0){ 
+				ystep=-ystep; }
+			box.style.left=x+'px';
+			box.style.top=y+'px';
+			y+=ystep;
+			x+=xstep;
+			setTimeout('run()',30);
+		}
+		run();
+	 </script>
+</body>
+</html>

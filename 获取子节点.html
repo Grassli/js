@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+	 <div id='outer'>
+	 	<ul><li>呵呵呵</li></ul>
+	 	<ul><li>呵呵呵</li></ul>
+	 	<ul><li>呵呵呵</li></ul>
+	 	<ul><li>呵呵呵</li></ul>
+	 </div>
+	 <script>
+	 		var odiv=document.getElementById('outer');
+	 			var a=odiv.childNodes;
+	 		//去除空白文本节点，留下的就是元素节点
+			function getChild(obj){
+				var a=obj.childNodes;
+	 			for(var i=0;i<a.length;i++){
+	 				if(a[i].nodeName=='#text')
+	 					a[i].parentNode.removeChild(a[i]);
+	 			}
+	 			return a;
+	 		}
+	 		getChild(odiv);
+	 		//直接取元素节点，必须用数组吧元素节点存起来
+	 		function getChild(obj){
+				var a=obj.childNodes;
+				var b=[];
+	 			for(var i=0;i<a.length;i++){
+	 				if(a[i].nodeType==1)
+	 					b[b.length]=a[i]
+	 			}
+	 			return b;
+	 		}
+	 		getChild(odiv);
+	 		//获取一个元素节点的第一个子元素节点:通过空白来选取。
+	 		function getFirstChild(eobj){
+	 			var first=eobj.firstChild;
+	 			if(first.nodeName=='#text') first=first.nextSibling;
+	 			return first;
+	 		}
+	 		getFirstChild(odiv).style.color='blue';
+	 		//获取第一个子元素节点的第二种方法
+	 		function getFirstChild2(obj){
+	 			var first=obj.firstChild;
+	 			while(first.nodeType!=1){
+	 					first=first.nextSibling;
+	 			}
+	 			return first;
+	 		}
+	 		getFirstChild2(odiv).style.border='1px solid #ccc';
+	 		//获取最后一个子元素节点的第一种方法
+	 		function getLastChild(obj){
+	 			var last=obj.lastChild;
+	 			while(last.nodeType!=1){
+	 				last=last.previousSibling;
+	 			}
+	 			return last;
+	 		}
+	 		getLastChild(odiv).style.color='red';
+	 		//获取最后一个元素的第二种方法
+	 		function getLastChild2(obj){
+	 			var last=obj.lastChild;
+	 			if(last.nodeName=='#text') last=last.previousSibling;
+	 			return last;
+	 		}
+	 		getLastChild2(odiv).style.background='yellow';	
+	 </script>
+
+</body>
+</html>

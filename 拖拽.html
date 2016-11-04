@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>拖拽</title>	
+	<style>
+		*{margin: 0;padding: 0;}
+		div{width: 100px;height: 100px;background: #ccc;}
+	</style>
+	</head>
+		<div id='box'></div>
+	<script>
+		var div=document.getElementById('box');
+		ondrag(div);
+		//鼠标按下
+		function ondrag(obj){
+			var isdown=false,mousex,mousey,objx,objy;
+			obj.style.left='0px';
+			obj.style.top='0px';
+			obj.onmousedown=function(event){
+					var e=event||window.event;
+				isdown=true;
+				obj.style.position='relative';
+				mousex=e.clientX;
+				mousey=e.clientY;
+				objx=parseFloat(obj.style.left);
+				objy=parseFloat(obj.style.top);
+				document.onmousemove=function(eve){
+				var evnt=eve||window.event;
+			
+					obj.style.left=parseFloat(evnt.clientX-mousex+objx)+'px';
+					obj.style.top=parseFloat(evnt.clientY-mousey+objy)+'px';
+			
+				}
+			}
+			
+			obj.onmouseup=function(){
+				document.onmousemove=null;
+			}
+		}
+	</script>
+</body>
+</html>

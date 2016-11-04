@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Ball</title>
+	<style>
+		*{margin: 0;padding: 0;}
+		.container{width: 500px;height: 500px;border: 1px solid #666;position: relative;margin: 50px auto;}
+		img{width: 30px;height: 30px;position: absolute;top: 0;left: 0;}
+		.zhuan{width: 50px;height: 50px;position: absolute;}
+	</style>
+</head>
+<body bgcolor="snow">	
+		<div class='container' id='outer'>
+			<img id='ig' src='images/b1.gif'/>
+		</div>
+	 <script>
+	 		var kuang=document.getElementById('outer');
+	 		var people=document.getElementById('ig');
+	 		var step=10;
+	 		 document.onkeydown=function(event){
+	 		 			var e=event||window.event;
+	 		 			switch(e.keyCode){
+	 		 				case 37://左
+	 		 					people.style.left=Math.max(0,people.offsetLeft-step)+'px';
+	 		 					change('l0.gif');
+	 		 					run('l')
+	 		 					break;
+	 		 				case 38://上
+	 		 					people.style.top=Math.max(0,people.offsetTop-step)+'px';
+	 		 					change('u0.gif');
+	 		 					run('u');
+	 		 					break;
+	 		 				case 39://右
+	 		 					people.style.left=Math.min(470,people.offsetLeft+step)+'px';
+	 		 					change('r0.gif');
+	 		 					run('r');
+	 		 					break;
+	 		 				case 40://下
+	 		 					people.style.top=Math.min(470,people.offsetTop+step)+'px';
+	 		 					change('b0.gif');
+	 		 					run('b');	
+	 		 					break;
+	 		 				default:
+	 		 					// alert('请按方向键');
+	 		 			}
+	 		 }
+	 		 //改变方向时换图
+	 		 function change(i){
+	 		 	people.src='images/'+i;
+	 		 }
+	 		 //一个方向中换图
+	 	 	var j=0;
+	 		 function run(n){
+	 		 	people.src='images/'+n+(j++)%2+'.gif';
+	 		}
+	 		//添加障碍物
+	 		var z;
+	 		outer.onclick=function(event){
+	 				var e=event||window.event,	
+	 				z=document.createElement('img');
+	 				z.src='images/zhuan.jpg';
+	 				z.name='wu';
+	 				z.className='zhuan';
+	 				//障碍物的横纵坐标
+	 				var x=e.clientX-450,y=e.clientY-75;
+	 				//设置边界
+	 				z.style.top=Math.max(0,y)+'px';
+	 				z.style.left=Math.max(0,x)+'px';
+	 				if(x>450){
+	 				z.style.left=Math.min(x,450)+'px';
+	 				}
+	 				if(y>450){
+	 					z.style.top=Math.min(y,450)+'px';
+	 				}
+	 				outer.appendChild(z);
+	 		}
+	 		//判断小人是否碰到障碍物
+	 			
+	 </script>
+	 		
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>全选、反选、不选</title>
+	<link type='text/css' rel='stylesheet' herf='1.css' />
+	<style>
+		*{margin: 0;padding: 0;}
+		.test{
+			width: 100px;
+			height: 100px;
+			background: #ccc;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+	</style>
+</head>
+<body>
+	<input type='checkbox' name='1' /> 音乐<br/>
+	<input type='checkbox' name='1' /> 手机<br/>
+	<input type='checkbox' name='1' /> 电视<br/>
+	<input type='checkbox' name='1' /> 冰箱<br/>
+	<input type='checkbox' name='1' /> 厨具<br/>
+	<input type='checkbox' name='1' /> 刀子<br/>
+	<input type='checkbox' name='1' /> 斧子<br/>
+	<button onclick='change(true)'>全选</button> <button onclick='change(1,1)'>反选</button> <button onclick='change(false)'>全不选</button>
+	hehe<input type='checkbox' id='ins' onclick='bian(this)'>
+</body>
+<script>
+	var inp=document.getElementsByName('1');
+	function change(b,f){
+		for(var i=0;i<inp.length;i++){
+			if(f) inp[i].checked?inp[i].checked=false:inp[i].checked=true;
+			else  inp[i].checked=b;
+		}
+	}
+	var inp2=document.getElementById('ins');
+		function bian(e){
+			for(var i=0;i<inp.length;i++){
+				inp[i].checked=e.checked;
+			}
+		}
+</script>
+</html>

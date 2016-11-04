@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>匀速运动</title>	
+	<style>
+		*{margin: 0;padding: 0;list-style: none;}
+		#container{width: 800px;height: 532px;margin: 50px auto;overflow: hidden;position: relative;box-shadow: 0 0 3px #666;}
+		#boximg{width: 3200px;height: 532px;position: absolute;}
+		#boximg li{width: 800px;height: 532px;float: left;}
+		#boximg li img{width: 800px;height: 532px;}
+		#index{width: 250px;height: 40px;position: absolute;top: 480px;left: 550px;}
+		#index li{width: 40px;height: 40px;border-radius: 50%;background: #ccc;margin-right: 8px;float: left;text-align: center;line-height: 40px;color: #666;}
+		#pre,#next{width: 30px;height: 100px;background: rgba(0,0,0,.3);position: absolute;color: #fff;text-align: center;line-height: 100px;font-size: 20px;font-weight: 800;}
+		#pre:hover,#next:hover{cursor: pointer;}
+		#pre{top: 180px;left: 10px;}
+		#next{top: 180px;right: 10px;}
+	</style>
+	</head>
+		<div id='container'>
+			<ul id='boximg'>
+				<li><img src='images/1.jpg' /></li>
+				<li><img src='images/2.jpg' /></li>
+				<li><img src='images/3.jpg' /></li>
+				<li><img src='images/4.jpg' /></li>
+			</ul>
+			<ol id='index'>
+				<li style='background: yellowgreen;'>1</li>
+				<li>2</li>
+				<li>3</li>
+				<li>4</li>
+			</ol>
+			<div id='pre' onclick='return jump()'>&lt;</div>
+			<div id='next' onclick='return jump1()'>&gt;</div>
+		</div>
+		
+	<script>	//速度  运动定时器 图片编号    
+			var speed=0,timer=null,  num=0,    n=0 ,autotimer;
+				imgList=$('boximg').getElementsByTagName('li');
+				indexList=$('index').getElementsByTagName('li');
+		//通过ID获取对象
+		function $(obj){
+			return document.getElementById(obj);
+		}
+		//点击前一个，跳到上一个图片
+		function jump(){
+			//判断图片是否滚动到开头，如果是第一张，不能在往前滚了
+			if(num==0) return false;
+			num--;
+			go(num);
+			run(num*(-800));	
+		}
+		//点击后一个，跳到下一个图片
+		function jump1(){
+			//判断图片是否滚动到最后，如果是最后一张，不能在往下滚了
+			if(num==3) return false;
+			num++
+			go(num);
+			run(num*(-800));
+		}
+		//图片自动播放
+		var j=1;
+	function autoplay(){
+		clearInterval(autotimer);
+		autotimer=setInterval(function(){
+			n++;
+			go(j);
+			j++;
+			if(j==4) j=0;
+			run(-800*n);
+			if(n==3) n=-1;
+		},2000);
+	}
+		autoplay()
+		//点击小圆圈，跳转指定的图片
+		for(var i=0;i<indexList.length;i++){
+			//为每个小圆圈添加点击事件
+			indexList[i].onclick=function(){
+				for(var i=0;i<indexList.length;i++){
+					if(this==indexList[i]){
+						clearInterval(timer);
+						run(i*(-800));
+						indexList[i].style.background='yellowgreen';
+					}else{
+						indexList[i].style.background='#ccc';
+					}
+				}
+				
+			}
+		}
+		//跳转
+		function go(countindex){
+			for(var i=0;i<indexList.length;i++){
+				if(countindex==i){
+					indexList[countindex].style.background='yellowgreen';
+				}else{
+					indexList[i].style.background='#ccc';
+				}
+			}
+		}
+		//图片滚动函数
+		function run(itarget){
+			clearInterval(timer);
+			timer=setInterval(function(){
+					speed=(itarget-$('boximg').offsetLeft)/6;
+					speed=speed>0?Math.ceil(speed):Math.floor(speed);
+				$('boximg').style.left=$('boximg').offsetLeft+speed+'px';
+
+			},30);
+		}
+		//鼠标悬停，停止自动播放，关闭autotimer定时器
+		$('container').onmouseover=function(){
+			clearInterval(autotimer);
+		}
+		//鼠标移出，继续自动播放
+		$('container').onmouseout=function(){
+			autoplay();
+		}
+	</script>
+</body>
+</html>

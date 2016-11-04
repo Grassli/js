@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>通过class获取对象</title>
+	<!-- getElementById、getElementsByTagName  getElementsByName -->
+</head>
+<body>	
+		<div id='d'>
+			<div class='son'></div>
+			<div></div>
+			<div></div>
+			<div class='son'></div>
+		</div>
+	<script>
+			//通过class来获取对象
+			var outer=document.getElementById('d');
+			function getclass(odiv,cname){
+				var ne=odiv.getElementsByTagName('*');
+				var res=[];
+				for(var i=0;i<ne.length;i++){
+					if(ne[i].className==cname){
+						res.push(ne[i]);
+						//res[res.length]=ne[i];
+					}
+				}
+				return res;
+			}
+	</script>
+</body>
+</html>

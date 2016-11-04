@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>无缝滚动</title>	
+	<script src="jquery.min.js"></script>
+	<style>
+		*{ margin: 0;padding: 0;list-style: none;}
+		.box{ width: 1200px; height: 400px; margin: 50px auto; position: relative; overflow: hidden; background: blue; }
+		.nav{ width: 1200px; height: 400px; position: absolute; top: 0; left: 0; }
+		.nav li{ width: 300px; height: 100%; float: left; }
+		.nav li img{ width: 300px; height: 400px; }
+		.dir{ width: 150px; height: 40px; margin: 20px auto; }
+		.bt{ width: 60px; height: 100%;  font-size: 20px; color: #fff; text-align: center; line-height: 40px; background: #333;}
+		.bt:hover{ cursor: pointer; }
+		.left{ float: left; }
+		.right{ float: right; }
+	</style>
+	</head>
+<body>	
+	<div class='box'>
+		<ul class='nav'>
+			<li><img src='images/1.jpg' /></li>
+			<li><img src='images/2.jpg' /></li>
+			<li><img src='images/3.jpg' /></li>
+			<li><img src='images/4.jpg' /></li>
+		</ul>
+	</div>
+	<div class='dir'>
+			<div id='lf' class='bt left'>&lt;</div>
+			<div id='rg' class='bt right'>&gt;</div>
+	</div>
+	<script>
+	//获取设置部分
+		var odiv=document.getElementsByTagName('div')[0],
+			oul=document.getElementsByTagName('ul')[0],
+			oli=oul.getElementsByTagName('li'),
+			//定时器
+			timer,
+			//滚动速度
+			speed=3,
+			//标记是否点击向右
+			isRight=false;
+			//把原来的一个图片组变为2个
+			oul.innerHTML=oul.innerHTML+oul.innerHTML;
+			//设置ul的宽度为原来的2倍
+			var oulWidth=oul.style.width=oli.length*oli[0].offsetWidth+'px';
+				
+		//主函数
+		function test(){
+			//获取两个方向按钮
+				var lf=document.getElementById('lf'), 
+					rg=document.getElementById('rg');
+			//点击向右
+				rg.onclick=function(){
+					isRight=true;
+					oul.style.left=-parseInt(oulWidth)/2+'px';
+					clearTimeout(timer)
+					runRight();
+				}
+			//点击向左
+				lf.onclick=function(){
+					isRight=false;
+					oul.style.left=0;
+					clearTimeout(timer)
+					runLeft();
+				}
+		}
+		test();
+		//向右滚动函数
+		function runRight(){
+			oul.style.left=oul.offsetLeft+speed+'px';
+				if(oul.offsetLeft>=0){
+					oul.style.left=-1200+'px';
+				}
+			timer=setTimeout(runRight,30);	
+		}
+		//向左滚动函数
+		function runLeft(){
+			oul.style.left=oul.offsetLeft-speed+'px';
+				if(oul.offsetLeft<=-parseInt(oulWidth)/2){
+					oul.style.left=0;
+				}
+			timer=setTimeout(runLeft,30);	
+		}
+		//鼠标移入图片，暂停滚动
+		odiv.onmouseover=function(){
+			clearTimeout(timer);
+		}
+		//鼠标移出图片，继续向原来方向滚动
+		odiv.onmouseout=function(){
+			if(isRight){
+				runRight();
+			}else{
+				runLeft();
+			}
+		}
+	</script>
+</body>
+</html>
+

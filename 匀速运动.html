@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>匀速运动</title>	
+	<style>
+		*{margin: 0;padding: 0;}
+		div{width: 100px;height: 100px;background: #ccc;position: absolute;}
+		.dot{width: 1px;height: 500px;background: #000;position: absolute;left: 500px;}
+	</style>
+	</head>
+	<button onclick='run(500)'>动起来</button>
+		<div id='box'></div>
+		<div class='dot'></div>
+	<script>
+		var timer=null;
+		function run(itarget){
+			var odiv=document.getElementById('box');
+			var speed=0;
+			clearInterval(timer);
+			timer=setInterval(function(){
+				if(odiv.offsetLeft<itarget){
+					speed=1;
+				}else{
+					speed=-1;
+				}
+				//匀速运动的停止条件
+				if(Math.abs(odiv.offsetLeft-itarget)<1){
+					clearInterval(timer);
+					odiv.style.left=itarget+'px';
+				}else{
+					odiv.style.left=odiv.offsetLeft+speed+'px';
+				}
+				
+			},30);
+		}
+
+		
+	</script>
+</body>
+</html>

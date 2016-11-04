@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>闭包</title>
+	<script>
+	var url='www/testobject/images/he.jpg';
+	function People(name){
+		this.name=name;
+		this.qu=function(url){
+			var a=url;
+			var i=a.lastIndexOf('/')+1;
+			alert(this.name+'获取到了'+' '+a.substr(i)+' '+'文件');
+		};
+	}
+		var ren=new People('何思思');
+		ren.qu(url);
+	</script>	
+</head>
+<body>
+	
+</body>
+</html>
